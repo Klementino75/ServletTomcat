@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 public class PostController {
-  public static final String APPLICATION_JSON = "application/json";
+  private final String APPLICATION_JSON = "application/json";
   private final PostService service;
   private final Gson gson = new Gson();
 
@@ -19,36 +19,35 @@ public class PostController {
   }
 
   public void all(HttpServletResponse response) throws IOException {
-    response.setContentType(APPLICATION_JSON);
     final var data = service.all();
+    response.setContentType(APPLICATION_JSON);
     response.getWriter().print(gson.toJson(data));
   }
 
-  public void getById(long id, HttpServletResponse response) {
+  public void getById(long id, HttpServletResponse response) throws IOException {
     // TODO: deserialize request & serialize response
     final var data = service.getById(id);
-    printRespons(data, response);
-  }
-
-  private void printRespons(Post data, HttpServletResponse response) {
-    response.setContentType(APPLICATION_JSON);
-    try {
-      response.getWriter().print(gson.toJson(data));
-    } catch (IOException e) {
-      throw new NotFoundException("Ошибка ввода или вывода.");
-    }
+    printResponse(data, response);
   }
 
   public void save(Reader body, HttpServletResponse response) throws IOException {
-    response.setContentType(APPLICATION_JSON);
     final var post = gson.fromJson(body, Post.class);
     final var data = service.save(post);
-    response.getWriter().print(gson.toJson(data));
+    printResponse(data, response);
   }
 
   public void removeById(long id, HttpServletResponse response) throws IOException {
     // TODO: deserialize request & serialize response
     service.removeById(id);
-    response.getWriter().print("Успешно удалено");
+    response.getWriter().print("Сообщение с id#" + id + " успешно удалено.");
+  }
+
+  public void printResponse(Post data, HttpServletResponse response) {
+    response.setContentType(APPLICATION_JSON);
+    try {
+      response.getWriter().print(gson.toJson(data));
+    } catch (IOException e) {
+      throw new NotFoundException("Ошибка ввода/вывода.");
+    }
   }
 }
