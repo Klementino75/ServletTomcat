@@ -2,5 +2,5 @@
 
 #### 2.1. Servlet Containers.
 
-Задание 2. WebApp Runner* (задача со звёздочкой).
+Задание 2. WebApp Runner* (задача со звёздочкой) в ветке feature/webapp-runner.
 
