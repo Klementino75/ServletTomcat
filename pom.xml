@@ -28,10 +28,9 @@
             <version>2.11.0</version>
         </dependency>
         <dependency>
-            <groupId>com.heroku</groupId>
-            <artifactId>webapp-runner</artifactId>
-            <version>10.1.31.0</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.2.0</version>
         </dependency>
     </dependencies>
-
 </project>
