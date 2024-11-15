@@ -1,11 +1,14 @@
 package ru.netology.service;
 
+import org.springframework.stereotype.Service;
+
 import ru.netology.exception.NotFoundException;
 import ru.netology.model.Post;
 import ru.netology.repository.PostRepository;
 
 import java.util.List;
 
+@Service
 public class PostService {
   private final PostRepository repository;
 
@@ -14,7 +17,7 @@ public class PostService {
   }
 
   public List<Post> all() {
-    return repository.all();
+    return (List<Post>) repository.all();
   }
 
   public Post getById(long id) {
@@ -29,4 +32,3 @@ public class PostService {
     repository.removeById(id);
   }
 }
-
